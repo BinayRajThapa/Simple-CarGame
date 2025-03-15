@@ -50,7 +50,6 @@ gameover = False
 speed = 2
 score = 0
 health = 3
-level = 1
 
 # high score
 try:
@@ -62,16 +61,12 @@ except FileNotFoundError:
 # load images
 player_image = pygame.image.load('images/car.png')
 coin_image = pygame.image.load('images/coin.png')
-background_image = pygame.image.load('images/background.jpg')
 crash = pygame.image.load('images/crash.png')
 crash_rect = crash.get_rect()
+heart_image = pygame.image.load('images/heart.png')  # Load heart image for health
 
-# load sounds
-pygame.mixer.init()
-collision_sound = pygame.mixer.Sound('sounds/collision.m4a')
-coin_sound = pygame.mixer.Sound('sounds/coin.mp3')
-background_music = pygame.mixer.Sound('sounds/background.mp3')
-background_music.play(-1)  # loop background music
+# scale heart image
+heart_image = pygame.transform.scale(heart_image, (30, 30))
 
 class Vehicle(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
@@ -132,7 +127,6 @@ while running:
             for vehicle in vehicle_group:
                 if pygame.sprite.collide_rect(player, vehicle):
                     health -= 1
-                    collision_sound.play()
                     if health <= 0:
                         gameover = True
                         crash_rect.center = [player.rect.center[0], player.rect.top]
@@ -141,8 +135,6 @@ while running:
     background_y += speed / 2
     if background_y >= height:
         background_y = 0
-    screen.blit(background_image, (0, background_y))
-    screen.blit(background_image, (0, background_y - height))
 
     # draw the road
     pygame.draw.rect(screen, gray, road)
@@ -184,9 +176,8 @@ while running:
             vehicle.kill()
             score += 1
 
-            # increase level and speed every 10 points
-            if score > 0 and score % 10 == 0:
-                level += 1
+            # speed up the game after passing 5 vehicles
+            if score > 0 and score % 5 == 0:
                 speed += 1
 
     # draw the vehicles
@@ -207,39 +198,24 @@ while running:
     # check for coin collection
     if pygame.sprite.spritecollide(player, coin_group, True):
         score += 5
-        coin_sound.play()
 
     # draw coins
     coin_group.draw(screen)
 
-    # display the score, level, and health
-    font = pygame.font.Font(pygame.font.get_default_font(), 16)
+    # display the score
+    font = pygame.font.Font(pygame.font.get_default_font(), 30)  # Larger font for score
     text = font.render(f'Score: {score}', True, white)
     text_rect = text.get_rect()
-    text_rect.center = (50, 400)
+    text_rect.center = (width // 2, 50)  # Position score at the top center
     screen.blit(text, text_rect)
 
-    level_text = font.render(f'Level: {level}', True, white)
-    level_rect = level_text.get_rect()
-    level_rect.center = (50, 430)
-    screen.blit(level_text, level_rect)
-
-    # draw health bar
-    def draw_health_bar(screen, x, y, health):
-        bar_width = 100
-        bar_height = 10
-        fill = (health / 3) * bar_width
-        outline_rect = pygame.Rect(x, y, bar_width, bar_height)
-        fill_rect = pygame.Rect(x, y, fill, bar_height)
-        pygame.draw.rect(screen, red, fill_rect)
-        pygame.draw.rect(screen, white, outline_rect, 2)
-
-    draw_health_bar(screen, 50, 450, health)
+    # display hearts (health)
+    for i in range(health):
+        screen.blit(heart_image, (10 + i * 35, 10))  # Display hearts at top left
 
     # check for head-on collision
     if pygame.sprite.spritecollide(player, vehicle_group, True):
         health -= 1
-        collision_sound.play()
         if health <= 0:
             gameover = True
             crash_rect.center = [player.rect.center[0], player.rect.top]
@@ -281,7 +257,6 @@ while running:
                     speed = 2
                     score = 0
                     health = 3
-                    level = 1
                     vehicle_group.empty()
                     coin_group.empty()
                     player.rect.center = [player_x, player_y]
