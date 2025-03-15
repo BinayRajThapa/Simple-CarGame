@@ -17,8 +17,7 @@ A simple yet fun 2D car game built using **Python** and **Pygame**. Avoid incomi
 
 ## Screenshots 🖼️
 
-![Gameplay Screenshot](screenshots/gameplay.png)  
-*Gameplay in action!*
+![Gameplay Screenshot](screenshots/gameplay.png)
 
 ---
 
