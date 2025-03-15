@@ -17,7 +17,8 @@ A simple yet fun 2D car game built using **Python** and **Pygame**. Avoid incomi
 
 ## Screenshots 🖼️
 
-![Gameplay Screenshot](screenshots/gameplay.png)
+![Gameplay Screenshot](screenshot/gameplay.png)
+*Gameplay in action!*
 
 ---
 
@@ -36,3 +37,14 @@ A simple yet fun 2D car game built using **Python** and **Pygame**. Avoid incomi
    ```bash
    git clone https://github.com/your-username/car-game.git
 
+2. **Navigate to the project directory:**
+   ```bash
+   cd car-game
+
+3. **Install the required dependencies:**
+   ```bash
+   pip install pygame
+
+3. **Run the game:**
+   ```bash
+   python car_game.py
