@@ -51,24 +51,8 @@ A simple yet fun 2D car game built using **Python** and **Pygame**. Avoid incomi
 
 ---
 
-## File Structure 📂
-Simple-CarGame/
-├── images/ 
-│ ├── car.png
-│ ├── coin.png
-│ ├── crash.png
-│ ├── heart.png
-│ ├── pickup_truck.png
-│ ├── semi_trailer.png
-│ ├── taxi.png
-│ └── van.png
-├── screenshots/ 
-│ └── gameplay.png
-├── car_game.py # Main game script
-├── high_score.txt 
-└── README.md 
-
 ## Contributing 🤝
 Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request.
+
 
 
