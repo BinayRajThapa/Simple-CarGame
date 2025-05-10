@@ -47,7 +47,7 @@ A simple yet fun 2D car game built using **Python** and **Pygame**. Avoid incomi
 
 3. **Run the game:**
    ```bash
-   python car_game.py
+   python car.py
 
 ---
 
